@@ -1,5 +1,6 @@
 package ufc.quixada.autoestudo.repository;
 
+import org.springframework.stereotype.Repository;
 import ufc.quixada.autoestudo.model.Contato;
 
 import javax.persistence.EntityManager;
@@ -8,6 +9,8 @@ import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
 
+@Repository
+@Transactional
 public class ContatoRepository implements IContatoRepository {
     protected EntityManager em;
 
@@ -41,10 +44,12 @@ public class ContatoRepository implements IContatoRepository {
         em.persist(contato);
     }
 
+
+
     @Override
     @Transactional
-    public Contato updateById(Integer id, Contato contato) {
-        contato = em.find(Contato.class, id);
+    public Contato update(Contato contato) {
+        contato = em.find(Contato.class, contato.getId());
         contato.setNome(contato.getNome());
         contato.setEmail(contato.getEmail());
         return contato;
