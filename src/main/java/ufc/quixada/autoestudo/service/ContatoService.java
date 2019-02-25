@@ -3,42 +3,43 @@ package ufc.quixada.autoestudo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ufc.quixada.autoestudo.model.Contato;
-import ufc.quixada.autoestudo.repository.ContatoRepository;
+import ufc.quixada.autoestudo.repository.IContatoRepository;
 
 import java.util.List;
 
 @Service
-public class ContatoService implements IContatoService {
+public class ContatoService {
     @Autowired
-    private ContatoRepository contatoRepository;
+    private IContatoRepository contatoRepository;
 
-    @Override
     public List<Contato> findAll() {
         return contatoRepository.findAll();
     }
 
-    @Override
-    public Contato findByNome(String nome) {
-        return contatoRepository.findByNome(nome);
-    }
-
-    @Override
     public Contato findById(Integer id) {
-        return contatoRepository.findById(id);
+        return contatoRepository.findOne(id);
     }
 
-    @Override
-    public void saveContact(Contato contato) {
-        contatoRepository.saveContact(contato);
+    public Contato saveContact(String nome, String email) {
+        Contato contato = new Contato();
+        contato.setNome(nome);
+        contato.setEmail(email);
+        contatoRepository.save(contato);
+
+        return contato;
     }
 
-    @Override
-    public Contato update(Contato contato) {
-        return contatoRepository.update(contato);
+    public Contato update(Integer id, String nome, String email) {
+        Contato contato = new Contato();
+        contato.setId(id);
+        contato.setNome(nome);
+        contato.setEmail(email);
+        contatoRepository.save(contato);
+
+        return contato;
     }
 
-    @Override
     public void remove(Contato contato) {
-        contatoRepository.remove(contato);
+        contatoRepository.delete(contato);
     }
 }

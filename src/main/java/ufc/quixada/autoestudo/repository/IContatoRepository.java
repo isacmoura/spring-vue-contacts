@@ -1,15 +1,11 @@
 package ufc.quixada.autoestudo.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import ufc.quixada.autoestudo.model.Contato;
 
-import java.util.List;
+@Repository
+public interface IContatoRepository extends JpaRepository<Contato, Integer> {
 
-public interface IContatoRepository{
-    List<Contato> findAll();
-    Contato findByNome(String nome);
-    Contato findById(Integer id);
-    void saveContact(Contato contato);
-    Contato update(Contato contato);
-    void remove(Contato contato);
 
 }
