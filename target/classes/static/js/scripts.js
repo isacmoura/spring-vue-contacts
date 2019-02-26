@@ -1,8 +1,10 @@
 new Vue({
-    el: '#contato',
-    data() {
-        return {
-            contatos: []
+    el: '#app',
+    data: {
+        contatos: [],
+        contato: {
+            nome: '',
+            email: ''
         }
     },
 
@@ -13,10 +15,27 @@ new Vue({
             }).catch(error => {
                 console.log(error)
             })
+        },
+
+        onSubmit() {
+            axios.post('http://localhost:8080/adicionarcontato', {
+                nome: this.contato.nome,
+                email: this.contato.email
+            }).then(response => {
+                this.contato.nome = response.data.nome
+                this.contato.email = response.data.email
+            }).catch(error => {
+                console.log(error)
+            })
         }
     },
 
     mounted() {
         this.getContatos();
+        this.onSubmit();
     },
 });
+
+new Vue({
+
+})

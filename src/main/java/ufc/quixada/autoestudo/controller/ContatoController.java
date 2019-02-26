@@ -30,7 +30,7 @@ public class ContatoController {
     }
 
     @PostMapping(path = "adicionarcontato")
-    public ResponseEntity<Object> addContato(@RequestParam String nome, String email) {
+    public ResponseEntity<Object> addContato(@RequestParam String nome, @RequestParam String email) {
         Contato contato = contatoService.saveContact(nome, email);
         return ResponseEntity.status(HttpStatus.OK).body(contato);
     }
@@ -47,7 +47,7 @@ public class ContatoController {
     }
 
     @PutMapping(path = "alterar/{id}")
-    public ResponseEntity<Object> alterarContato(@PathVariable Integer id, @RequestParam String nome, String email){
+    public ResponseEntity<Object> alterarContato(@PathVariable Integer id, @RequestParam String nome, @RequestParam String email){
         Contato contato = contatoService.update(id, nome, email);
         return ResponseEntity.status(HttpStatus.CREATED).body(contato);
     }
