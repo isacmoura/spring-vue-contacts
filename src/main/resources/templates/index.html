@@ -2,9 +2,7 @@
 <html
         lang="pt-br"
         xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
->
+        xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
     <title>Index</title>
@@ -36,7 +34,7 @@
             </form>
         </div>
 
-        <div class="row">
+        <div class="row" id="contato">
             <h5>Contatos</h5>
             <table class="striped">
                 <thead>
@@ -49,20 +47,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="contato : ${contatos}">
-                        <td th:text="${contato.id}"></td>
-                        <td th:text="${contato.nome}"></td>
-                        <td th:text="${contato.email}"></td>
-                        <td><a class="waves-effect waves-teal btn-flat" th:href="@{${'buscar/'+contato.id}}">Alterar contato</a></td>
-                        <td><a class="waves-effect waves-teal btn-flat" th:href="@{${'excluir/'+contato.id}}">Excluir contato</a></td>
+                    <tr v-for="contato in contatos">
+                        <td>{{contato.id}}</td>
+                        <td>{{contato.nome}}</td>
+                        <td>{{contato.email}}</td>
+                        <td><a class="btn waves-effect btn-flat green" v-on:click="alterarContato()">Alterar contato</a></td>
+                        <td><a class="btn waves-effect btn-flat red" v-on:click="deletarContato()">Excluir contato</a></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <script src="https://mvnrepository.com/artifact/org.webjars/vue"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.7/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
     <script src="https://mvnrepository.com/artifact/org.webjars/jquery"></script>
     <script src="/webjars/materializecss/0.97.7/js/materialize.js"></script>
+    <script src="js/scripts.js"></script>
 </body>
 </html>

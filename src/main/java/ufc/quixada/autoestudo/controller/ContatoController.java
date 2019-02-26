@@ -17,19 +17,22 @@ public class ContatoController {
     @Autowired
     ContatoService contatoService;
 
-    @GetMapping()
+    @GetMapping(path = "/listar")
+    public List<Contato> listar() {
+        List<Contato> contatos = contatoService.findAll();
+        return contatos;
+    }
+
+    @GetMapping(path = "/")
     public ModelAndView index() {
         ModelAndView model = new ModelAndView("index");
-        List<Contato> contatos = contatoService.findAll();
-        model.addObject("contatos", contatos);
-
         return model;
     }
 
     @PostMapping(path = "adicionarcontato")
     public ResponseEntity<Object> addContato(@RequestParam String nome, String email) {
         Contato contato = contatoService.saveContact(nome, email);
-        return ResponseEntity.status(HttpStatus.CREATED).body(contato);
+        return ResponseEntity.status(HttpStatus.OK).body(contato);
     }
 
     @GetMapping(path = "buscar/{id}")
@@ -47,5 +50,11 @@ public class ContatoController {
     public ResponseEntity<Object> alterarContato(@PathVariable Integer id, @RequestParam String nome, String email){
         Contato contato = contatoService.update(id, nome, email);
         return ResponseEntity.status(HttpStatus.CREATED).body(contato);
+    }
+
+    @DeleteMapping(path = "deletar/{id}")
+    public ResponseEntity<Object> deletarContato(@PathVariable Integer id){
+        Contato contato = contatoService.remove(id);
+        return ResponseEntity.status(HttpStatus.OK).body(contato);
     }
 }
