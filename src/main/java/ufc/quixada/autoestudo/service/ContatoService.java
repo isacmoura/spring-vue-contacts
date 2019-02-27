@@ -20,10 +20,7 @@ public class ContatoService {
         return contatoRepository.findOne(id);
     }
 
-    public Contato saveContact(String nome, String email) {
-        Contato contato = new Contato();
-        contato.setNome(nome);
-        contato.setEmail(email);
+    public Contato saveContact(Contato contato) {
         contatoRepository.save(contato);
 
         return contato;

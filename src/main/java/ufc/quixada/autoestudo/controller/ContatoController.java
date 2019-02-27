@@ -30,8 +30,8 @@ public class ContatoController {
     }
 
     @PostMapping(path = "adicionarcontato")
-    public ResponseEntity<Object> addContato(@RequestParam String nome, @RequestParam String email) {
-        Contato contato = contatoService.saveContact(nome, email);
+    public ResponseEntity<Object> addContato(@RequestBody Contato contato) {
+        contato = contatoService.saveContact(contato);
         return ResponseEntity.status(HttpStatus.OK).body(contato);
     }
 

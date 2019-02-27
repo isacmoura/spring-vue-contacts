@@ -18,12 +18,10 @@ new Vue({
         },
 
         onSubmit() {
-            axios.post('http://localhost:8080/adicionarcontato', {
-                nome: this.contato.nome,
-                email: this.contato.email
-            }).then(response => {
-                this.contato.nome = response.data.nome
-                this.contato.email = response.data.email
+            var formData = new FormData();
+            formData.append(this.contato.nome, this.contato.email);
+            axios.post('http://localhost:8080/adicionarcontato', formData).then(response => {
+                console.log(response.data)
             }).catch(error => {
                 console.log(error)
             })
@@ -35,7 +33,3 @@ new Vue({
         this.onSubmit();
     },
 });
-
-new Vue({
-
-})
